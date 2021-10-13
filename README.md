@@ -2,23 +2,24 @@
 A tool for Oceanographers and Meteorologists to easily create their NetCDF files using Matlab
 
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% % %
-% % %  Creates mytest.nc file from one-dimensional arrays of longitude and latitude
-% % %
-% % %  lon = [-38.5, -38, -37.5, -37, -36.5, -36, -35.5];
-% % %
-% % %  lat = [-1.5, -1, -0.5, 0, 0.5, 1, 1.5];
-% % %
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+A tool for Oceanographers and Meteorologists to easily create their NetCDF files using Matlab.
+
+
+
+Creates mytest.nc file from one-dimensional arrays of longitude and latitude
+
+lon = [-38.5, -38, -37.5, -37, -36.5, -36, -35.5];
+
+lat = [-1.5, -1, -0.5, 0, 0.5, 1, 1.5];
 
 matlab:
 
->> create_NC('mytest.nc', [-38.5:0.5:-35.5], [-1.5:0.5:1.5]);
+create_NC('mytest.nc', [-38.5:0.5:-35.5], [-1.5:0.5:1.5]);
 
 bash:
 
-# ncdump -v lon,lat mytest.nc
+ncdump -v lon,lat mytest.nc
 
 Result:
 
@@ -53,24 +54,20 @@ data:
 
 
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% % %
-% % %  Creates mytest_2.nc file from two-dimensional arrays of longitude and latitude
-% % %
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+Creates mytest_2.nc file from two-dimensional arrays of longitude and latitude
 
 matlab:
 
->> lons = [-38.5, -38, -37.5, -37, -36.5, -36, -35.5];
->> lats = [-1.5, -1, -0.5, 0, 0.5];
->> [LATS, LONS] = meshgrid(lats, lons);
+lons = [-38.5, -38, -37.5, -37, -36.5, -36, -35.5];
+lats = [-1.5, -1, -0.5, 0, 0.5];
+[LATS, LONS] = meshgrid(lats, lons);
 
->> create_NC_2DCoordinates('mytest_2.nc', LONS, LATS);
+create_NC_2DCoordinates('mytest_2.nc', LONS, LATS);
 
 
 bash:
 
-# ncdump -v lon,lat mytest.nc
+ncdump -v lon,lat mytest.nc
 
 Result:
 
@@ -114,26 +111,21 @@ data:
 
 
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% % %
-% % %  Inserts a 2D variable in the file mytest_2.nc
-% % %
-% % %  Example: a bathymetry where the depth ranges between -100 and -1 m
-% % %
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+Inserts a 2D variable in the file mytest_2.nc
+Example: a bathymetry where the depth ranges between -100 and -1 m
 
 matlab:
 
->> [nLon, nLat] = size(LONS);
+[nLon, nLat] = size(LONS);
 
->> BathymetryRange = [-100:-1];
->> Bath = rand(nLon,nLat) * range(BathymetryRange) + BathymetryRange(1);
+BathymetryRange = [-100:-1];
+Bath = rand(nLon,nLat) * range(BathymetryRange) + BathymetryRange(1);
 
->> insertvariable2D_NC('mytest_2.nc', Bath, 'z', 'Bathymetry', 'Shallow water bathymetry', 'm')
+insertvariable2D_NC('mytest_2.nc', Bath, 'z', 'Bathymetry', 'Shallow water bathymetry', 'm')
 
 bash:
 
-# ncdump -v lon,lat mytest.nc
+ncdump -v lon,lat mytest.nc
 
 Result:
 
@@ -180,33 +172,27 @@ data:
 
 
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% % %
-% % %  Insert a three-dimensional static variable that is depth-dependent
-% % %
-% % %  BathymetryRange = [0, 10, 20, 30, 40, 50];
-% % %
-% % %
-% % %
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+Insert a three-dimensional static variable that is depth-dependent
+
+BathymetryRange = [0, 10, 20, 30, 40, 50];
 
 matlab:
 
->> BathymetryRange = [0:10:50];
->> TemperatureRange = [27:0.02:28];
->> [nLon, nLat] = size(LONS);
->> nDepth = length(BathymetryRange);
+BathymetryRange = [0:10:50];
+TemperatureRange = [27:0.02:28];
+[nLon, nLat] = size(LONS);
+nDepth = length(BathymetryRange);
 
->> Temp = rand(nLon, nLat, nDepth) * range(TemperatureRange) + TemperatureRange(1);
+Temp = rand(nLon, nLat, nDepth) * range(TemperatureRange) + TemperatureRange(1);
 
->> % The depth values are inserted
->> insertdepth_NC('mytest_2.nc', BathymetryRange)
+% The depth values are inserted
+insertdepth_NC('mytest_2.nc', BathymetryRange)
 
->> insertstaticvariable3D_NC('mytest_2.nc', Temp, 'pottemp', 'potential_temperature', 'Potential Temperature', 'Â°C', 999.99)
+insertstaticvariable3D_NC('mytest_2.nc', Temp, 'pottemp', 'potential_temperature', 'Potential Temperature', 'Â°C', 999.99)
 
 bash:
 
-# ncdump -v depth,pottemp mytest_2.nc
+ncdump -v depth,pottemp mytest_2.nc
 
 Result:
 
@@ -266,33 +252,29 @@ data:
 
 
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% % %
-% % % Insert a three-dimensional dynamic variable that is time-dependent
-% % %
-% % % Time range = Daily data from '2001-05-03' to '1900-01-01'
-% % % (The '-' as a field separator in the date is mandatory)
-% % % Base time = '1900-01-01'
-% % %
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+Insert a three-dimensional dynamic variable that is time-dependent
+
+Time range = Daily data from '2001-05-03' to '1900-01-01'
+(The '-' as a field separator in the date is mandatory)
+Base time = '1900-01-01'
 
 matlab:
 
->> % Daily mean
->> % Base time '1900-01-01'
->> timeRange = [datenum('2001-05-03'):datenum('2001-05-21')] - datenum('1900-01-01');
+% Daily mean
+% Base time '1900-01-01'
+timeRange = [datenum('2001-05-03'):datenum('2001-05-21')] - datenum('1900-01-01');
 
->> TemperatureRange = [27:0.02:28];
->> [nLon, nLat] = size(LONS);
->> nTime = length(timeRange);
->> Temp = rand(nLon, nLat, nTime) * range(TemperatureRange) + TemperatureRange(1);
+TemperatureRange = [27:0.02:28];
+[nLon, nLat] = size(LONS);
+nTime = length(timeRange);
+Temp = rand(nLon, nLat, nTime) * range(TemperatureRange) + TemperatureRange(1);
 
->> inserttime_NC('mytest_2.nc', timeRange, 'days since 1900-01-01');
->> insertdynamicvariable3D_NC('mytest_2.nc', Temp, 'temp', 'temperature', 'SST', 'Â°C', 999.99)
+inserttime_NC('mytest_2.nc', timeRange, 'days since 1900-01-01');
+insertdynamicvariable3D_NC('mytest_2.nc', Temp, 'temp', 'temperature', 'SST', 'Â°C', 999.99)
 
 bash:
 
-# ncdump -v temp,time -t mytest_2.nc
+ncdump -v temp,time -t mytest_2.nc
 
 Result:
 
@@ -368,30 +350,26 @@ data:
 
 
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% % %
-% % % Inserting a depth and time dependent variable.
-% % %
-% % % Functions insertdepth_NC and inserttime_NC must be used previously.
-% % %
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+Inserting a depth and time dependent variable.
+
+Functions insertdepth_NC and inserttime_NC must be used previously.
 
 matlab:
 
->> depthRange = [0:10:50];
->> timeRange = [datenum('2001-05-03'):datenum('2001-05-21')] - datenum('1900-01-01');
->> SaltRange = [35.5:0.1:36.5];
+depthRange = [0:10:50];
+timeRange = [datenum('2001-05-03'):datenum('2001-05-21')] - datenum('1900-01-01');
+SaltRange = [35.5:0.1:36.5];
 
->> [nLon, nLat] = size(LONS);
->> nDepth = length(depthRange);
->> nTime = length(timeRange);
->> Salt = rand(nLon, nLat, nDepth, nTime) * range(SaltRange) + SaltRange(1);
+[nLon, nLat] = size(LONS);
+nDepth = length(depthRange);
+nTime = length(timeRange);
+Salt = rand(nLon, nLat, nDepth, nTime) * range(SaltRange) + SaltRange(1);
 
->> insertdynamicvariable4D_NC('mytest_2.nc', Salt, 'salt', 'SSS', 'Sea Surface Salinity', 'psu', -999.0)
+insertdynamicvariable4D_NC('mytest_2.nc', Salt, 'salt', 'SSS', 'Sea Surface Salinity', 'psu', -999.0)
 
 bash:
 
-# ncdump -v salt mytest_2.nc
+ncdump -v salt mytest_2.nc
 
 Result:
 
@@ -445,27 +423,23 @@ variables:
 
 
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% % %
-% % % Insert a time series
-% % %
-% % %  To insert a time series the functions inserttime_NC has to be used previously
-% % %
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+Insert a time series
+
+To insert a time series the functions inserttime_NC has to be used previously
 
 matlab:
 
->> LHF_Range = [-150:10:-80];
->> timeRange = [datenum('2001-05-03'):datenum('2001-05-21')] - datenum('1900-01-01');
->> nTime = length(timeRange);
+LHF_Range = [-150:10:-80];
+timeRange = [datenum('2001-05-03'):datenum('2001-05-21')] - datenum('1900-01-01');
+nTime = length(timeRange);
 
->> LHF = rand(1, nTime) * range(LHF_Range) + LHF_Range(1);
+LHF = rand(1, nTime) * range(LHF_Range) + LHF_Range(1);
 
->> inserttimeserie_NC('mytest_2.nc', LHF, 'lhf', 'LHF', 'Latent Heat Flux', 'W/m^2', 1.e+20)
+inserttimeserie_NC('mytest_2.nc', LHF, 'lhf', 'LHF', 'Latent Heat Flux', 'W/m^2', 1.e+20)
 
 bash:
 
-# ncdump -v lhf mytest_2.nc
+ncdump -v lhf mytest_2.nc
 
 Result:
 
@@ -547,31 +521,27 @@ data:
 
 
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% % %
-% % % Create a NetCDF file with time series only
-% % %
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+Create a NetCDF file with time series only
 
 matlab:
 
->> timeRange = [datenum('2001-05-03'):datenum('2001-05-21')] - datenum('1900-01-01');
+timeRange = [datenum('2001-05-03'):datenum('2001-05-21')] - datenum('1900-01-01');
 
->> createtimeserie_NC('mytest_3.nc', timeRange, '1900-01-01')
+createtimeserie_NC('mytest_3.nc', timeRange, '1900-01-01')
 
->> SWR_Range = [180:10:250];
->> LWR_Range = [-100:10:-50];
->> nTime = length(timeRange);
+SWR_Range = [180:10:250];
+LWR_Range = [-100:10:-50];
+nTime = length(timeRange);
 
->> SWR = rand(1, nTime) * range(SWR_Range) + SWR_Range(1);
->> LWR = rand(1, nTime) * range(LWR_Range) + LWR_Range(1);
+SWR = rand(1, nTime) * range(SWR_Range) + SWR_Range(1);
+LWR = rand(1, nTime) * range(LWR_Range) + LWR_Range(1);
 
->> inserttimeserie_NC('mytest_3.nc', SWR, 'swr', 'SWR', 'Short Wave Radiation', 'W/m^2', 1.e+20)
->> inserttimeserie_NC('mytest_3.nc', LWR, 'lwr', 'LWR', 'Long Wave Radiation', 'W/m^2', 1.e+20)
+inserttimeserie_NC('mytest_3.nc', SWR, 'swr', 'SWR', 'Short Wave Radiation', 'W/m^2', 1.e+20)
+inserttimeserie_NC('mytest_3.nc', LWR, 'lwr', 'LWR', 'Long Wave Radiation', 'W/m^2', 1.e+20)
 
 bash:
 
-# ncdump -v lwr,swr,time -t mytest_3.nc
+ncdump -v lwr,swr,time -t mytest_3.nc
 
 Result:
 
@@ -624,9 +594,10 @@ data:
     -58.297106644226, -68.9318597650484, -70.7001552939819, -68.9116708557565 ;
 }
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The function insertlevel_NC is equivalent to insertdepth_NC, the function insertstaticvariable3DAtmosphere_NC is equivalent to insertstaticvariable3D_NC and the function insertstaticvariable4DAtmosphere_NC is equivalent to insertstaticvariable3D_NC and the function insertdynamicvariable4DAtmosphere_NC is equivalent to insertdynamicvariable4D_NC, with the only difference that they write the level parameter instead of the depth parameter.
-
-
-
+The function insertlevel_NC is equivalent to insertdepth_NC,
+the function insertstaticvariable3DAtmosphere_NC is equivalent to insertstaticvariable3D_NC
+and the function insertdynamicvariable4DAtmosphere_NC is equivalent to insertdynamicvariable4D_NC,
+with the only difference that they write the "level" parameter instead of the "depth" parameter.
