@@ -1,10 +1,8 @@
 # mNC
-#A tool for Oceanographers and Meteorologists to easily create their NetCDF files using Matlab
+# A tool for Oceanographers and Meteorologists to easily create their NetCDF files using Matlab
 
 
-
-
-Creates mytest.nc file from one-dimensional arrays of longitude and latitude
+# Creates mytest.nc file from one-dimensional arrays of longitude and latitude
 
 lon = [-38.5, -38, -37.5, -37, -36.5, -36, -35.5];
 
@@ -74,7 +72,7 @@ data:
 
 
 
-Creates mytest_2.nc file from two-dimensional arrays of longitude and latitude
+# Creates mytest_2.nc file from two-dimensional arrays of longitude and latitude
 
 
 matlab:
@@ -164,7 +162,7 @@ data:
 
 
 
-Inserts a 2D variable in the file mytest_2.nc
+# Inserts a 2D variable in the file mytest_2.nc
 
 Example: a bathymetry where the depth ranges between -100 and -1 m
 
@@ -265,7 +263,7 @@ data:
 
 
 
-Insert a three-dimensional static variable that is depth-dependent
+# Insert a three-dimensional static variable that is depth-dependent
 
 
 BathymetryRange = [0, 10, 20, 30, 40, 50];
@@ -401,7 +399,7 @@ data:
 
 
 
-Insert a three-dimensional dynamic variable that is time-dependent
+# Insert a three-dimensional dynamic variable that is time-dependent
 
 Time range = Daily data from '2001-05-03' to '1900-01-01'
 
@@ -571,7 +569,7 @@ data:
 
 
 
-Inserting a depth and time dependent variable.
+# Inserting a depth and time dependent variable.
 
 Functions insertdepth_NC and inserttime_NC must be used previously.
 
@@ -698,7 +696,7 @@ variables:
 
 
 
-Insert a time series
+# Insert a time series
 
 To insert a time series the functions inserttime_NC has to be used previously
 
@@ -868,7 +866,7 @@ data:
 
 
 
-Create a NetCDF file with time series only
+# Create a NetCDF file with time series only
 
 
 matlab:
