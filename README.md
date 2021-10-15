@@ -1,6 +1,6 @@
 # mNC
 # A tool for Oceanographers and Meteorologists to easily create their NetCDF files using Matlab
-
+[![DOI](https://zenodo.org/badge/416897763.svg)](https://zenodo.org/badge/latestdoi/416897763)
 
 
 
