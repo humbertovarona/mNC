@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Varona"
+  given-names: "Humberto L."
+  orcid: "https://orcid.org/0000-0001-7405-4827"
+title: "mNC: A tool for Oceanographers and Meteorologists to easily create their NetCDF files using Matlab"
+version: 1.0
+doi: 10.5281/zenodo.5572749
+date-released: 2021-10-15
+url: "https://doi.org/10.5281/zenodo.5572749"
