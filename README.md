@@ -1,7 +1,9 @@
 # mNC
 # A tool for Oceanographers and Meteorologists to easily create their NetCDF files using Matlab
-[![DOI](https://zenodo.org/badge/416897763.svg)](https://zenodo.org/badge/latestdoi/416897763)
 
+# DOI
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5572749.svg)](https://doi.org/10.5281/zenodo.5572749)
 
 
 # Creates mytest.nc file from one-dimensional arrays of longitude and latitude
